@@ -1,0 +1,5 @@
+*-workspace/
+*.champion-backup
+enterprise-state/
+*.json.bak
+node_modules/
